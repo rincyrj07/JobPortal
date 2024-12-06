@@ -4,26 +4,55 @@ import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { RadioGroup } from '../ui/radio-group'
 import { Button } from '../ui/button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { setLoading } from '@/redux/authSlice'
+import { toast } from 'sonner'
+import { USER_API_END_POINT } from '@/utils/constant'
+import axios from 'axios'
+import store from '@/redux/store'
+import { Loader2 } from 'lucide-react'
 
 const Login = () => {
-    const { input, setInput } = useState({
+    const  [input, setInput]  = useState({
         email: "",
         password: "",
-        role: "",   
+        role: "",
     });
+    const {loading} = useSelector(store=>store.auth);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
 
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
     }
 
-    // const changeFileHandler = (e) => {
-    //     setInput({ ...input, file: e.target.files?.[0] });
-    // }
-
-    const submitHandler = async (e) => {
+       const submitHandler = async (e) => {
         e.preventDefault();
-        console.log(input);
+
+        try {
+            dispatch(setLoading(true));
+            const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials: true,
+            });
+           
+            if (res.data.success) {
+                dispatch(setUser(res.data.user));
+                navigate("/");
+                toast.success(res.data.message);
+            }
+
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.message);
+        } finally{
+
+        }
+
     }
     return (
         <div>
@@ -38,7 +67,7 @@ const Login = () => {
                             placeholder="name@gmail.com"
                             value={input.email}
                             name="email"
-                            onChange={changeEventHandler}  
+                            onChange={changeEventHandler}
                         />
                     </div>
                     <div className='my-2'>
@@ -66,18 +95,21 @@ const Login = () => {
                             </div>
                             <div className="flex items-center space-x-2">
                                 <Input
-                                   type="radio"
-                                   name="role"
-                                   value="recruiter"
-                                   checked={input.role === 'recruiter'}
-                                   onChange={changeEventHandler}
-                                   className="cursor-pointer"
+                                    type="radio"
+                                    name="role"
+                                    value="recruiter"
+                                    checked={input.role === 'recruiter'}
+                                    onChange={changeEventHandler}
+                                    className="cursor-pointer"
                                 />
                                 <Label htmlFor="r2">Recruiter</Label>
                             </div>
                         </RadioGroup>
                     </div>
-                    <Button type="submit" className="w-full center bg-red-300 hover:bg-red-500 my-4">Login</Button>
+                    {
+                     loading ? <Button className="w-full my-4"><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please wait</Button> :<Button type="submit" className="w-full center bg-red-300 hover:bg-red-500 my-4">Login</Button>
+                    }
+                    
                     <span className='text-sm'>Don't have an account? <Link to="/signup" className='text-blue-600'>Signup</Link></span>
                 </form>
             </div>

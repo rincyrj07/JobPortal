@@ -5,6 +5,8 @@ import jwt from "jsonwebtoken";
 export const register = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, password, role } = req.body;
+        
+        
         if (!fullname || !email || !phoneNumber || !password || !role) {
             return res.status(400).json({
                 message: "Something is missing",
@@ -62,7 +64,10 @@ export const login = async (req, res) => {
                 success: false,
             })
         };
-        if (role != user.role) {
+
+        // checking role 
+
+        if (role !== user.role) {
             return res.status(400).json({
                 message: "Account doesn't exist with current role.",
                 success: false,
@@ -82,7 +87,7 @@ export const login = async (req, res) => {
             profile: user.profile
         }
         return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'strict' }).json({
-            message: 'Welcome back ${user.fullname}',
+            message: `Welcome back ${user.fullname}`,
             user,
             success: true
         })

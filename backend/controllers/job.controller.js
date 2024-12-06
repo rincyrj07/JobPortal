@@ -1,5 +1,8 @@
 import { Job } from "../models/job.model.js";
 
+
+//posting job by admin
+
 export const postJob = async (req, res) => {
     try {
         const { title, description, requirements, salary, location, jobType, experience, position, companyId } = req.body;
@@ -23,8 +26,8 @@ export const postJob = async (req, res) => {
             position,
             company: companyId,
             created_by: userId
-
         });
+
         return res.status(201).json({
             message: "New job created successfully.",
             job,
@@ -32,7 +35,6 @@ export const postJob = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-
     }
 }
 
@@ -64,6 +66,8 @@ export const getAllJobs = async (req, res) => {
 
     }
 }
+
+//posting by student
 
 export const getJobById = async (req, res) => {
     try {
@@ -101,7 +105,7 @@ export const getAdminJobs = async (req, res) => {
             success: true
         })
     } catch (error) {
-        console.log();
+        console.log(error);
 
     }
 }

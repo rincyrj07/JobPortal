@@ -2,9 +2,7 @@ import { Application } from "../models/application.model.js";
 import { Job } from "../models/job.model.js";
 
 export const applyJob = async (req, res) => {
-    
     try {
-
         const userId = req.id;
         const jobId = req.params.id;
 
@@ -15,7 +13,7 @@ export const applyJob = async (req, res) => {
             })
         };
 
-        // check user already applied for this job
+        // checking the user already applied for this job
         const existingApplication = await Application.findOne({ job: jobId, applicant: userId });
 
         if (existingApplication) {
@@ -26,7 +24,7 @@ export const applyJob = async (req, res) => {
 
         }
 
-        //check the job exist
+        //checking the job exist
 
         const job = await Job.findById(jobId);
         if (!job) {
@@ -36,11 +34,10 @@ export const applyJob = async (req, res) => {
             })
         }
 
-        // create a new application
+        // creating a new application
 
         const newApplication = await Application.create({
             job: jobId,
-
             applicant:userId
             // application: userId,
             // status: "pending",
@@ -53,10 +50,8 @@ export const applyJob = async (req, res) => {
             message: "Job applied successfully.",
             success: true
         })
-
     } catch (error) {
         console.log(error);
-
     }
 };
 
@@ -94,7 +89,7 @@ export const getApplicants = async (req, res) => {
         const jobId = req.params.id;
         const job = await Job.findById(jobId).populate({
             path: 'applications',
-            options: { sort: { created: -1 } },
+            options: { sort: { createdAt: -1 }},
             populate: {
                 path: 'applicant'
             }
@@ -112,7 +107,6 @@ export const getApplicants = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-
     }
 }
 
