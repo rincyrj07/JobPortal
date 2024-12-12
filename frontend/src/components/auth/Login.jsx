@@ -19,7 +19,7 @@ const Login = () => {
         password: "",
         role: "",
     });
-    const {loading} = useSelector(store=>store.auth);
+    const {loading} = useSelector(store => store.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
