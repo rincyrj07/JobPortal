@@ -1,26 +1,29 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
-import { Edit2, MoreHorizontal } from 'lucide-react'
+import { Edit2, Eye, MoreHorizontal } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const AdminJobsTable = () => {
-    
-    const {allAdminJobs, searchJobsByText} = useSelector(store=>store.job);
+
+    const { allAdminJobs, searchJobByText } = useSelector(store => store.job);
     const [filterJobs, setFilterJobs] = useState(allAdminJobs);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const filteredJobs = allAdminJobs.length >= 0 && allAdminJobs.filter((job) => {
-            if (!searchJobsByText) {
+        console.log('called');
+        // const filteredJobs = allAdminJobs?.length >= 0 && allAdminJobs.filter((job) => {
+        const filteredJobs = allAdminJobs.filter((job) => {
+            if (!searchJobByText) {
                 return true
             };
-            return job?.title?.toLowerCase().includes(searchJobsByText.toLowerCase()) || job?.company?.name.toLowerCase().includes(searchJobsByText.toLowerCase());
+            return job?.title?.toLowerCase().includes(searchJobByText.toLowerCase()) || job?.company?.name.toLowerCase().includes(searchJobByText.toLowerCase());
         });
         setFilterJobs(filteredJobs)
-    }, [allAdminJobs, searchJobsByText])
+    }, [allAdminJobs, searchJobByText])
+
     return (
         <div>
             <Table>
@@ -37,7 +40,6 @@ const AdminJobsTable = () => {
                     {
                         filterJobs?.map((job) => (
                             <tr>
-                               
                                 <TableCell>{job?.company?.name}</TableCell>
                                 <TableCell>{job?.title}</TableCell>
                                 <TableCell>{job?.createdAt.split("T")[0]}</TableCell>
@@ -45,9 +47,13 @@ const AdminJobsTable = () => {
                                     <Popover>
                                         <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
                                         <PopoverContent className="w-32">
-                                            <div onClick={()=> navigate(`/admin/companies/${job._id}`)} className='gap-2 w-fit flex items-center cursor-pointer'>
+                                            <div onClick={() => navigate(`/admin/companies/${job._id}`)} className='gap-2 w-fit flex items-center cursor-pointer'>
                                                 <Edit2 className='w-4' />
                                                 <span>Edit</span>
+                                            </div>
+                                            <div onClick={() => navigate(`/admin/jobs/${job._id}/applicants`)} className='flex items-center gap-2 my-2  w-fit cursor-pointer '>
+                                                <Eye className='w-4' />
+                                                <span>Applicants</span>
                                             </div>
                                         </PopoverContent>
                                     </Popover>

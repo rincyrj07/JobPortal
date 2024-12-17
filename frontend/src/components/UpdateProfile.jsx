@@ -6,18 +6,21 @@ import { Button } from './ui/button'
 import { Loader2 } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { USER_API_END_POINT } from '@/utils/constant'
+import axios from 'axios'
+import { toast } from 'sonner'
+import { setUser } from '@/redux/authSlice'
 
 const UpdateProfile = ({ open, setOpen }) => {
     const [loading, setLoading] = useState(false);
     const { user } = useSelector(store => store.auth);
 
     const [input, setInput] = useState({
-        fullname: user?.fullname,
-        email: user?.email,
-        phoneNumber: user?.phoneNumber,
-        bio: user?.profile?.bio,
-        skills: user?.profile?.skills?.map(skills => skills),
-        file: user?.profile?.resume
+        fullname: user?.fullname || "",
+        email: user?.email || "",
+        phoneNumber: user?.phoneNumber || "",
+        bio: user?.profile?.bio || "",
+        skills: user?.profile?.skills?.map(skills => skills) || "",
+        file: user?.profile?.resume || ""
     });
 
     const dispatch = useDispatch();
@@ -60,7 +63,7 @@ const UpdateProfile = ({ open, setOpen }) => {
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.message);
-        } finally{
+        } finally {
             setLoading(false);
         }
         setOpen(false);
@@ -79,7 +82,7 @@ const UpdateProfile = ({ open, setOpen }) => {
                     <form onSubmit={submitHandler}>
                         <div className=' py-4 grid gap-4'>
                             <div className='gap-4 items-center grid grid-cols-4'>
-                                <Label htmlFor="name" >Name</Label>
+                                <Label htmlFor="name"  className="text-right">Name</Label>
                                 <Input
                                     id="name"
                                     name="name"
@@ -90,7 +93,7 @@ const UpdateProfile = ({ open, setOpen }) => {
                                 />
                             </div>
                             <div className='gap-4 items-center grid grid-cols-4'>
-                                <Label htmlFor="email" >Email</Label>
+                                <Label htmlFor="email" className="text-right" >Email</Label>
                                 <Input
                                     id="email"
                                     name="email"
@@ -101,7 +104,7 @@ const UpdateProfile = ({ open, setOpen }) => {
                                 />
                             </div>
                             <div className='gap-4 items-center grid grid-cols-4'>
-                                <Label htmlFor="number" >Number</Label>
+                                <Label htmlFor="number" className="text-right">Number</Label>
                                 <Input
                                     id="number"
                                     name="number"
@@ -111,7 +114,7 @@ const UpdateProfile = ({ open, setOpen }) => {
                                 />
                             </div>
                             <div className='gap-4 items-center grid grid-cols-4'>
-                                <Label htmlFor="bio" >Bio</Label>
+                                <Label htmlFor="bio" className="text-right">Bio</Label>
                                 <Input
                                     id="bio"
                                     name="bio"
@@ -121,7 +124,7 @@ const UpdateProfile = ({ open, setOpen }) => {
                                 />
                             </div>
                             <div className='gap-4 items-center grid grid-cols-4'>
-                                <Label htmlFor="skills" >Skills</Label>
+                                <Label htmlFor="skills" className="text-right">Skills</Label>
                                 <Input
                                     id="skills"
                                     name="skills"
@@ -131,7 +134,7 @@ const UpdateProfile = ({ open, setOpen }) => {
                                 />
                             </div>
                             <div className='gap-4 items-center grid grid-cols-4'>
-                                <Label htmlFor="file" >Resume</Label>
+                                <Label htmlFor="file" className="text-right">Resume</Label>
                                 <Input
                                     id="file"
                                     name="file"
@@ -142,7 +145,6 @@ const UpdateProfile = ({ open, setOpen }) => {
                                     className="col-span-3"
                                 />
                             </div>
-
                         </div>
                         <DialogFooter>
                             {
@@ -152,7 +154,6 @@ const UpdateProfile = ({ open, setOpen }) => {
                     </form>
                 </DialogContent>
             </Dialog>
-
         </div>
     )
 }

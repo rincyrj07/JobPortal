@@ -5,16 +5,18 @@ import { Button } from './ui/button'
 import { Contact, Mail, Pen } from 'lucide-react'
 import { Badge } from './ui/badge'
 import { Label } from './ui/label'
-import AppliedJobList from './AppliedJobList'
 import UpdateProfile from './UpdateProfile'
 import { useSelector } from 'react-redux'
+import useGetAppliedJobs from '@/hooks/useGetAppliedJobs'
+import AppliedJobTable from './AppliedJobTable'
 
 // const skills = ["HTML", "CSS", "Javascript", "ReactJS", "NodeJS", "MongoDB"]
 const isResume = true;
 
 const Profile = () => {
+    useGetAppliedJobs();
     const [open, setOpen] = useState(false);
-    const {user} = useSelector(store=>store.auth);
+    const { user } = useSelector(store => store.auth);
 
     return (
         <div>
@@ -41,7 +43,6 @@ const Profile = () => {
                         <Contact />
                         <span>{user?.phoneNumber}</span>
                     </div>
-
                 </div>
                 <div className='my-5'>
                     <h1>Skills</h1>
@@ -60,10 +61,10 @@ const Profile = () => {
             </div>
             <div className='mx-auto max-w-4xl bg-white rounded-2xl'>
                 <h1 className='text-lg font-bold my-5'>Applied Jobs</h1>
-                { }
-                <AppliedJobList />
+                {/* { } */}
+                <AppliedJobTable />
             </div>
-            <UpdateProfile open={open} setOpen={setOpen}/>
+            <UpdateProfile open={open} setOpen={setOpen} />
         </div>
     )
 }

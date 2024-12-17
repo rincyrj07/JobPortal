@@ -57,11 +57,9 @@ const Navbar = () => {
                         !user ? (
                             <div className='flex item-center gap-2'>
                                 <Link to="/login"><Button varient="outline" className="bg-red-300 hover:bg-red-500">Login</Button></Link>
-                                <Link to="signup"><Button className="bg-red-300 hover:bg-red-500">Signup</Button></Link>
+                                <Link to="/signup"><Button className="bg-red-300 hover:bg-red-500">Signup</Button></Link>
                             </div>
                         ) : (
-
-
                             <Popover>
                                 <PopoverTrigger asChild>
                                     <Avatar className="cursor-pointer">
@@ -91,7 +89,7 @@ const Navbar = () => {
 
                                             <div className='flex w-fit items-center gap-2 cursor-pointer'>
                                                 <LogOut />
-                                                <Button onclick={logoutHandler} variant="link">Logout</Button>
+                                                <Button onClick={logoutHandler} variant="link">Logout</Button>
                                             </div>
                                         </div>
                                     </div>

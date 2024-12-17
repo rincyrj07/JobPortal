@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import Navbar from '../shared/Navbar';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
-import { useSelector } from 'react-redux';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-import axios from 'axios';
-import { JOB_API_END_POINT } from '@/utils/constant';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
-import { Loader2 } from 'lucide-react';
-import Companies from './Companies';
+import Navbar from '../shared/Navbar'
+import { Label } from '../ui/label'
+import { Input } from '../ui/input'
+import { Button } from '../ui/button'
+import { useSelector } from 'react-redux'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
+import axios from 'axios'
+import { JOB_API_END_POINT } from '@/utils/constant'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
 
-const companyArray = [];
+
+ const companyArray = [];
 
 const PostJob = () => {
     const [input, setInput] = useState({
@@ -37,7 +37,7 @@ const PostJob = () => {
 
     const selectChangeHandler = (value) => {
         const selectedCompany = companies.find((company) => company.name.toLowercase() === value);
-        setInput({ ...input, companyId: selectedCompany._id })
+        setInput({ ...input, companyId: selectedCompany._id });
     }
 
     const submitHandler = async (e) => {
@@ -148,7 +148,7 @@ const PostJob = () => {
                             />
                         </div>
                         {
-                            companies.length > 0 && (
+                            companies?.length > 0 && (
                                 <Select onValueChange={selectChangeHandler}>
                                     <SelectTrigger className="w-[180px]">
                                         <SelectValue placeholder="Select a company" />
@@ -175,7 +175,7 @@ const PostJob = () => {
                         loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 animate-spin' />Please Wait</Button> : <Button type="submit" className="w-full my-4">Add New Jobs</Button>
                     }
                     {
-                        companies.length === 0 && <p className='text-center my-3 font-bold text-xs text-black-300'> *Registration of the company is mandatory before posting jobs</p>
+                        companies?.length === 0 && <p className='text-center my-3 font-bold text-xs text-black-300'> *Registration of the company is mandatory before posting jobs</p>
                     }
                 </form>
             </div>

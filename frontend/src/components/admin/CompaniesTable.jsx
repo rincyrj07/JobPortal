@@ -12,13 +12,13 @@ const CompaniesTable = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const filteredCompany = companies.length >= 0 && companies.filter((company) => {
+        const filteredCompany = companies?.length >= 0 && companies.filter((company) => {
             if (!searchCompanyByText) {
                 return true
             };
             return company?.name?.toLowerCase().includes(searchCompanyByText.toLowerCase());
         });
-        setFilterCompany(filteredCompany)
+        setFilterCompany(filteredCompany);
     }, [companies, searchCompanyByText])
     return (
         <div>

@@ -1,5 +1,5 @@
 import express from "express";
-import { registerCompany, getCompany , getCompanyById , updateCompany } from "../controllers/company.controller.js";
+import { registerCompany, getCompany, getCompanyById, updateCompany } from "../controllers/company.controller.js";
 import isAuthenticated from "../middlewares/isAuthenticated.js";
 import { singleUpload } from "../middlewares/multer.js";
 

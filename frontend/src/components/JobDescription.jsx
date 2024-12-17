@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { useParams } from 'react-router-dom';
-import {setSingleJob} from '@/redux/jobSlice' ;
+import { setSingleJob } from '@/redux/jobSlice';
 import axios from 'axios';
 import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from '@/utils/constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'sonner';
 
 const JobDescription = () => {
-    const {singleJob} = useSelector(store =>store.job);
-    const {user} = useSelector(store=>store.auth);
-    const isInitiallyApplied = singleJob?.applications?.some(application=>application.applicant === user?._id) || false;
+    const { singleJob } = useSelector(store => store.job);
+    const { user } = useSelector(store => store.auth);
+    const isInitiallyApplied = singleJob?.applications?.some(application => application.applicant === user?._id) || false;
     const [isApplied, setIsApplied] = useState(isInitiallyApplied);
     const params = useParams();
     const jobId = params.id;
@@ -20,12 +20,12 @@ const JobDescription = () => {
 
     const applyJobHandler = async () => {
         try {
-            const res = await axios.get(`${APPLICATION_API_END_POINT}/apply/${jobId}`, {withCredentials:true});
+            const res = await axios.get(`${APPLICATION_API_END_POINT}/apply/${jobId}`, { withCredentials: true });
             console.log(res.data);
-            
-            if(res.data.success){
+
+            if (res.data.success) {
                 setIsApplied(true);
-                const updatedSingleJob = {...singleJob, applications:[...singleJob.applications,{applicant:user?._id}]}
+                const updatedSingleJob = { ...singleJob, applications: [...singleJob.applications, { applicant: user?._id }] }
                 dispatch(setSingleJob(updatedSingleJob));
                 toast.success(res.data.message);
             }
@@ -34,23 +34,23 @@ const JobDescription = () => {
             toast.error(error.response.data.message);
         }
     }
-    
-    useEffect(() =>{
+
+    useEffect(() => {
         const fetchSingleJob = async () => {
             try {
-                const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`,{withCredentials:true});
+                const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, { withCredentials: true });
                 // console.log(res);
-                
-                if(res.data.success){
+
+                if (res.data.success) {
                     dispatch(setSingleJob(res.data.job));
                     setIsApplied(res.data.job.applications.some(application => application.applicant === user?._id))
                 }
             } catch (error) {
-                console.log(error);  
+                console.log(error);
             }
         }
         fetchSingleJob();
-      },[jobId,dispatch,user?._id]);
+    }, [jobId, dispatch, user?._id]);
     return (
         <div className='my-10 max-w-7xl mx-auto'>
             <div className='flex items-center justify-between'>
@@ -63,7 +63,7 @@ const JobDescription = () => {
                     </div>
                 </div>
                 <Button
-                onClick={isApplied ?null: applyJobHandler}
+                    onClick={isApplied ? null : applyJobHandler}
                     disabled={isApplied} className={`rounded-lg ${isApplied ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-300 hover:bg-red-500'}`}>
                     {isApplied ? 'Already Applied' : 'Apply Now'}
                 </Button>
