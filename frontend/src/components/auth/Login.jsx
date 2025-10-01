@@ -30,12 +30,17 @@ const Login = () => {
        const submitHandler = async (e) => {
         e.preventDefault();
 
+        //
+        // const formData = new FormData();
+        // formData.append("fullname", input.fullname);
+        // formData.append("email", input.email);
+        // formData.append("role", input.role);
+        // //
+
         try {
             dispatch(setLoading(true));
             const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: {"Content-Type": "application/json" },
                 withCredentials: true,
             });
            
@@ -52,12 +57,31 @@ const Login = () => {
           dispatch(setLoading(false));
         }
 
-    }
+    };
+    //
+    // useEffect( ()=> {
+    //     async function fetchData(){
+    //          const res= await axios.post("http://localhost:8000/test", {name:"rincy"} )
+    //      }
+    //     fetchData()
+    //  })
+    
+
+    
     useEffect(()=>{
         if(user){
             navigate("/");
         }
-    },[])
+    },[user, navigate])
+
+    //
+
+    //  useEffect(() => {
+    //     if (user) {
+    //         navigate("/");
+    //     }
+    // }, [user, navigate]);
+
     return (
         <div>
             <Navbar />
