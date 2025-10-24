@@ -36,7 +36,7 @@ const PostJob = () => {
     };
 
     const selectChangeHandler = (value) => {
-        const selectedCompany = companies.find((company) => company.name.toLowercase() === value);
+        const selectedCompany = companies.find((company) => company.name.toLowerCase() === value);
         setInput({ ...input, companyId: selectedCompany._id });
     }
 
@@ -50,7 +50,7 @@ const PostJob = () => {
                 },
                 withCredentials: true
             });
-            if (res.data.seccess) {
+            if (res.data.success) {
                 toast.success(res.data.message);
                 navigate("/admin/jobs");
             }
@@ -158,7 +158,7 @@ const PostJob = () => {
                                             {
                                                 companies.map((company) => {
                                                     return (
-                                                        <SelectItem value={company?.name?.toLowercase()}>{company.name}</SelectItem>
+                                                        <SelectItem value={company?.name?.toLowerCase()}>{company.name}</SelectItem>
                                                     )
                                                 })
                                             }

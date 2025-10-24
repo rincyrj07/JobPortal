@@ -77,12 +77,9 @@ const statusHandler = async (status, id) => {
                                     </TableCell>
                                 </TableCell>
                             </tr>
-
                         ))
                     }
-
                 </TableBody>
-
             </Table>
         </div>
     )
