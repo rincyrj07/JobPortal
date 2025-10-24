@@ -148,10 +148,10 @@ const PostJob = () => {
                             />
                         </div>
                         {
-                            companies?.length > 0 && (
+                            companies.length > 0 && (
                                 <Select onValueChange={selectChangeHandler}>
                                     <SelectTrigger className="w-[180px]">
-                                        <SelectValue placeholder="Select a company" />
+                                        <SelectValue placeholder={'Select a company'} />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectGroup>
@@ -175,7 +175,7 @@ const PostJob = () => {
                         loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 animate-spin' />Please Wait</Button> : <Button type="submit" className="w-full my-4">Add New Jobs</Button>
                     }
                     {
-                        companies?.length === 0 && <p className='text-center my-3 font-bold text-xs text-black-300'> *Registration of the company is mandatory before posting jobs</p>
+                        companies.length === 0 && <p className='text-center my-3 font-bold text-xs text-black-300'> *Registration of the company is mandatory before posting jobs</p>
                     }
                 </form>
             </div>

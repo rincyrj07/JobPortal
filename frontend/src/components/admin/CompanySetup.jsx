@@ -49,6 +49,7 @@ const CompanySetup = () => {
             const res = await axios.put(`${COMPANY_API_END_POINT}/update/${params.id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
+                    // 'Content-Type': 'application/json'
                 },
                 withCredentials: true
             });
@@ -62,6 +63,7 @@ const CompanySetup = () => {
         } finally {
             setLoading(false);
         }
+    }
 
         useEffect(() => {
             setInput({
@@ -73,14 +75,14 @@ const CompanySetup = () => {
             })
         },[singleCompany]);
 
-    }
+    
     return (
         <div>
             <Navbar />
             <div className='max-w-xl mx-auto my-10'>
                 <form onSubmit={submitHandler}>
                     <div className='flex items-center gap-5 p-8'>
-                        <Button onClick={() => navigate("/admin/companies")} variant="outline" className="flex items-center gap-2  font-bold text-gray-500">
+                        <Button onClick={() => navigate("/admin/companies")} variant="outline" className="flex items-center gap-2 font-bold text-gray-500">
                             <ArrowLeft />
                             <span>Back</span>
                         </Button>
@@ -133,7 +135,7 @@ const CompanySetup = () => {
                         </div>
                     </div>
                     {
-                        loading ? <Button className="w-full my-4"><Loader2 className='mr-2 h-4 animate-spin' />Please Wait</Button> : <Button type="submit" className="w-full my-4"></Button>
+                        loading ? <Button className="w-full my-4"><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</Button> : <Button type="submit" className="w-full my-4">Update</Button>
                     }
                 </form>
             </div>

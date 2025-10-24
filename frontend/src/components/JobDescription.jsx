@@ -7,12 +7,14 @@ import axios from 'axios';
 import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from '@/utils/constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'sonner';
+// import useGetSingleJob from '@/hooks/useGetSingleJob';
 
 const JobDescription = () => {
     const { singleJob } = useSelector(store => store.job);
     const { user } = useSelector(store => store.auth);
     const isInitiallyApplied = singleJob?.applications?.some(application => application.applicant === user?._id) || false;
     const [isApplied, setIsApplied] = useState(isInitiallyApplied);
+    
     const params = useParams();
     const jobId = params.id;
     // useGetSingleJob(jobId);
@@ -64,7 +66,8 @@ const JobDescription = () => {
                 </div>
                 <Button
                     onClick={isApplied ? null : applyJobHandler}
-                    disabled={isApplied} className={`rounded-lg ${isApplied ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-300 hover:bg-red-500'}`}>
+                    disabled={isApplied} 
+                    className={`rounded-lg ${isApplied ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-300 hover:bg-red-500'}`}>
                     {isApplied ? 'Already Applied' : 'Apply Now'}
                 </Button>
             </div>
@@ -73,7 +76,7 @@ const JobDescription = () => {
                 <h1 className='my-1 font-bold'>Role: <span className='pl-4 font-normal text-gray-500'>{singleJob?.title}</span></h1>
                 <h1 className='my-1 font-bold'>Location: <span className='pl-4 font-normal text-gray-500'>{singleJob?.location}</span></h1>
                 <h1 className='my-1 font-bold'>Description: <span className='pl-4 font-normal text-gray-500'>{singleJob?.description}</span></h1>
-                <h1 className='my-1 font-bold'>Experience: <span className='pl-4 font-normal text-gray-500'>{singleJob?.description}yrs</span></h1>
+                <h1 className='my-1 font-bold'>Experience: <span className='pl-4 font-normal text-gray-500'>{singleJob?.experience}yrs</span></h1>
                 <h1 className='my-1 font-bold'>Salary: <span className='pl-4 font-normal text-gray-500'>{singleJob?.salary}LPA</span></h1>
                 <h1 className='my-1 font-bold'>No.of applicants: <span className='pl-4 font-normal text-gray-500'>{singleJob?.applications?.length}</span></h1>
                 <h1 className='my-1 font-bold'>Posted Date: <span className='pl-4 font-normal text-gray-500'>{singleJob?.createdAt.split("T")[0]}</span></h1>

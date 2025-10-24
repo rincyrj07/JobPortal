@@ -8,7 +8,7 @@ const AppliedJobTable = () => {
   return (
     <div>
         <Table>
-            <TableCaption>Applied jobs</TableCaption>
+            <TableCaption>List of applied jobs</TableCaption>
                 <TableHeader>
                     <TableRow>
                         <TableHead>Date</TableHead>
@@ -19,12 +19,12 @@ const AppliedJobTable = () => {
                 </TableHeader>
             <TableBody>
                 {
-                    allAppliedJobs?.length <= 0 ? <span>You have not applied for any job</span> : allAppliedJobs?.map((appliedJob ) => (
+                    allAppliedJobs.length <= 0 ? <span>You have not applied for any job</span> : allAppliedJobs.map((appliedJob ) => (
                         <TableRow key={appliedJob._id}>
                             <TableCell>{appliedJob?.createdAt?.split("T")[0]}</TableCell>
                             <TableCell>{appliedJob.job?.title}</TableCell>
-                            <TableCell>{appliedJob?.Job?.company?.name}</TableCell>
-                            <TableCell className="text-right"><Badge className={`${appliedJob?.status === "rejected" ? 'bg-red-500' : appliedJob.status === 'pending' ? 'bg-black-400' : 'bg-green-400'}`}>{appliedJob.status.toUpperCase()}</Badge></TableCell>  
+                            <TableCell>{appliedJob?.job?.company?.name}</TableCell>
+                            <TableCell className="text-right"><Badge className={`${appliedJob?.status === "rejected" ? 'bg-red-500' : appliedJob.status === 'pending' ? 'bg-gray-400' : 'bg-green-400'}`}>{appliedJob.status.toUpperCase()}</Badge></TableCell>  
                         </TableRow>
                     ))
                 }

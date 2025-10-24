@@ -64,14 +64,14 @@ const Navbar = () => {
                             <Popover>
                                 <PopoverTrigger asChild>
                                     <Avatar className="cursor-pointer">
-                                        <AvatarImage src="https://github.com/shadcn.png" />  
+                                        <AvatarImage src={user?.profile?.profilePhoto} alt="@shadcn"/>  
                                     </Avatar>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-80">
                                     <div className=''>
                                         <div className='flex gap-4 space-y-2'>
                                             <Avatar className="cursor-pointer">
-                                                 <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn"/>
+                                                 <AvatarImage src={user?.profile?.profilePhoto} alt="@shadcn"/>
                                             </Avatar>
                                             <div>
                                                 <h4 className='font-bold'>{user?.fullname}</h4>
@@ -83,7 +83,7 @@ const Navbar = () => {
                                                 user && user.role === 'student' && (
                                                     <div className='flex w-fit items-center gap-2 cursor-pointer'>
                                                         <User2 />
-                                                        <Button variant="link"><Link to="/profile">View Profile</Link></Button>
+                                                        <Button variant="link"> <Link to="/profile">View Profile</Link></Button>
                                                     </div>
                                                 )
                                             }

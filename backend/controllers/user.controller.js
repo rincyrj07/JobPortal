@@ -41,7 +41,7 @@ export const register = async (req, res) => {
             password: hashedPassword,
             role,
             profile: {
-                profilePhoto: cloudResponse.secure_url,   
+                profilePhoto:cloudResponse.secure_url,   
             }
         });
 
@@ -123,10 +123,11 @@ export const logout = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
     try {
-        const { fullname, email, phoneNumber, bio, skills } = req.body;
-        console.log(fullname,email,phoneNumber,bio,skills);
-        
+        const { fullname, email, phoneNumber, bio, skills } = req.body;     
         const file = req.file;
+        const fileUri = getDataUri(file);
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
         // if (!fullname || !email || !phoneNumber || !bio || !skills) {
         //     return res.status(400).json({
         //         message: "Something is missing",
@@ -136,9 +137,7 @@ export const updateProfile = async (req, res) => {
 
         //cloudinary
 
-        const fileUri = getDataUri(file);
-        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-
+        
         let skillsArray;
         if (skills) {
             skillsArray = skills.split(",");
