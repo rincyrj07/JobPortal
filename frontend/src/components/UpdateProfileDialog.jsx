@@ -10,7 +10,7 @@ import axios from 'axios'
 import { toast } from 'sonner'
 import { setUser } from '@/redux/authSlice'
 
-const UpdateProfile = ({ open, setOpen }) => {
+const UpdateProfileDialog = ({ open, setOpen }) => {
     const [loading, setLoading] = useState(false);
     const { user } = useSelector(store => store.auth);
 
@@ -73,7 +73,7 @@ const UpdateProfile = ({ open, setOpen }) => {
     return (
         <div>
             <Dialog open={open}>
-                <DialogContent className="sm:max-w[425px]" onInteractOutside={() => setOpen(false)}>
+                <DialogContent className="sm:max-w-[425px]" onInteractOutside={() => setOpen(false)}>
                     <DialogHeader>
                         <DialogTitle>
                             Update Profile
@@ -158,4 +158,4 @@ const UpdateProfile = ({ open, setOpen }) => {
     )
 }
 
-export default UpdateProfile
+export default UpdateProfileDialog

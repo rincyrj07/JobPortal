@@ -49,11 +49,12 @@ const statusHandler = async (status, id) => {
                                 <TableCell>{item?.applicant?.fullname}</TableCell>
                                 <TableCell>{item?.applicant?.email}</TableCell>
                                 <TableCell>{item?.applicant?.phoneNumber}</TableCell>
-                                <TableCell className="text-blue-300 cursor-pointer">
-                                    <TableCell className="float-right cursor-pointer">
+                                {/* <TableCell className="text-blue-300 cursor-pointer">
+                                    <TableCell className="float-right cursor-pointer"> */}
+                                    <TableCell>
                                         {
                                             // item.applicant?.profile?.resume ? <a href={item?.applicant?.profile?.resume} target="_blank" rel="noopener noreferrer">{item?.applicant?.profile?.resumeOriginalName}</a> : <span>NA</span>
-                                            item.applicant?.profile?.resume? <a className='text-blue-500 cursor-pointer' href={item?.applicant?.profile?.resume} target="_blank" rel="noopener noreferrer">{item?.applicant?.profile?.resumeOriginalName}</a>:<span>NA</span>
+                                            item.applicant?.profile?.resume ? <a className='text-blue-500 cursor-pointer' href={item?.applicant?.profile?.resume} target="_blank" rel="noopener noreferrer">{item?.applicant?.profile?.resumeOriginalName}</a> : <span>NA</span>
                                         }
                                     </TableCell>
                                     <TableCell >{item?.applicant.createdAt.split("T")[0]}</TableCell>
@@ -75,7 +76,6 @@ const statusHandler = async (status, id) => {
                                             </PopoverContent>
                                         </Popover>
                                     </TableCell>
-                                </TableCell>
                             </tr>
                         ))
                     }

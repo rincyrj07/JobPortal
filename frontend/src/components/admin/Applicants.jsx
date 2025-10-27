@@ -17,9 +17,9 @@ const Applicants = () => {
             try {
                 const res = await axios.get(`${APPLICATION_API_END_POINT}/${params.id}/applicants`,{withCredentials:true});
                 // console.log(res.data);
-                
+                 dispatch(setAllApplicants(res.data.job));
                 // if(res.data.success){
-                    dispatch(setAllApplicants(res.data.job));
+                //     dispatch(setAllApplicants(res.data.job));
                 // }
             } catch (error) {
                 console.log(error);
