@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 // const randomJobs = [1,2,3,4,5,6,7,8];
 const HomeJobs = () => {
   const { allJobs } = useSelector(store => store.job);
-
+  // const navigate = useNavigate()
   // const allJobs = useSelector((state) => state.jobs?.allJobs);
 
   return (

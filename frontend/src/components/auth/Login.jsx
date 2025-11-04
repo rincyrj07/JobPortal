@@ -76,12 +76,7 @@ const Login = () => {
 
     //
 
-    //  useEffect(() => {
-    //     if (user) {
-    //         navigate("/");
-    //     }
-    // }, [user, navigate]);
-
+   
     return (
         <div>
             <Navbar />

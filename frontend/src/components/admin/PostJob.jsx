@@ -65,8 +65,8 @@ const PostJob = () => {
         <div>
             <Navbar />
             <div className='flex items-center justify-center w-screen my-5'>
-                <form onSubmit={submitHandler} className='border-gray-500 shadow-lg rounded-md p-8 max-w-3xl'>
-                    <div className='gap-2 grid grid-cols-1'>
+                <form onSubmit={submitHandler} className='border border-gray-500 shadow-lg p-8 max-w-4xl  rounded-md'>
+                    <div className='grid grid-cols-2 gap-2'>
                         <div>
                             <Label>Title</Label>
                             <Input
